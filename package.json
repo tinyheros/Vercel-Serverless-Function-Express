@@ -10,6 +10,7 @@
   "license": "MIT",
   "description": "Instant Vercel Express serverless function.",
   "dependencies": {
+    "firebase": "^10.12.2",
     "micro-cors": "^0.1.1"
   }
 }
