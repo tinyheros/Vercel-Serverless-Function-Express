@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, update } from "firebase/database";
+import { child, getDatabase, ref, update } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBEGNbRqVYMKRCYWwz__vLaCdgXFMAJY28",
@@ -24,6 +24,33 @@ export const updatePlayer = async (data) => {
     };
   } catch (error) {
     console.error("Error updating player:", error.message);
+    return {
+      message: error.message,
+      status: 400
+    };
+  }
+};
+
+child
+
+export const getPlayer = async (address) => {
+  const dbRef = ref(db);
+  try {
+    const snapshot = await get(child(db, `players/${address}`));
+    if (snapshot.exists()) {
+      return {
+        data: snapshot.val(),
+        message: "Player data retrieved",
+        status: 200
+      };
+    } else {
+      return {
+        message: "No data available",
+        status: 404
+      };
+    }
+  } catch (error) {
+    console.error("Error getting player data:", error.message);
     return {
       message: error.message,
       status: 400
