@@ -1,4 +1,3 @@
-
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, update } from "firebase/database";
 
@@ -11,25 +10,23 @@ const firebaseConfig = {
   appId: "1:494887546965:web:1fcc5c1ead42f498d164dc"
 };
 
-
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app)
+const db = getDatabase(app);
 
-export const updatePlayer = (data)=> {
-    try{
-        update(ref(db, 'players/' + data.address), {
-            ...data
-        })
-        return {
-            message: "Player updated",
-            status: 200
-        }
-    } catch(error) {
-        return {
-            message: error.message,
-            status: 400
-        }
-        
-    }
-}
-
+export const updatePlayer = async (data) => {
+  try {
+    await update(ref(db, 'players/' + data.address), {
+      ...data
+    });
+    return {
+      message: "Player updated",
+      status: 200
+    };
+  } catch (error) {
+    console.error("Error updating player:", error.message);
+    return {
+      message: error.message,
+      status: 400
+    };
+  }
+};
