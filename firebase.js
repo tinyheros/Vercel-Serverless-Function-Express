@@ -33,27 +33,21 @@ export const updatePlayer = async (data) => {
 
 child
 
-export const getPlayer = async (address) => {
-  const dbRef = ref(db);
-  try {
-    const snapshot = await get(child(db, `players/${address}`));
+export const getPlayer = async (data) => {
+  get(child(db, `players/${data.address}`)).then((snapshot) => {
     if (snapshot.exists()) {
       return {
-        data: snapshot.val(),
-        message: "Player data retrieved",
-        status: 200
-      };
+        message: snapshot.val(),
+        code: 200
+      }
     } else {
+      console.log("No data available");
       return {
-        message: "No data available",
-        status: 404
-      };
+        message: "error",
+        code: 500
+      }
     }
-  } catch (error) {
-    console.error("Error getting player data:", error.message);
-    return {
-      message: error.message,
-      status: 400
-    };
-  }
+  }).catch((error) => {
+    console.error(error);
+  });
 };
