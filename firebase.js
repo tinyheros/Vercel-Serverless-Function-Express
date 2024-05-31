@@ -36,14 +36,15 @@ child
 export const getPlayer = async (data) => {
   get(child(db, `players/${data.address}`)).then((snapshot) => {
     if (snapshot.exists()) {
+      console.log(snapshot.val());
+      const res = await = snapshot.val()
       return {
-        message: snapshot.val(),
+        message: res,
         code: 200
       }
     } else {
-      console.log("No data available");
       return {
-        message: "error",
+        message: "Error",
         code: 500
       }
     }
