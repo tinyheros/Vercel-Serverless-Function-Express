@@ -6,7 +6,7 @@ const cors = Cors();
 export default cors(async function handler(req, res) {
     let response;
     try {
-const response = await getPlayer(req.body.address)
+const response = await getPlayer(req.body)
         res.status(200).json({
             response
         });
