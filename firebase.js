@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { child, getDatabase, onValue, ref, update } from "firebase/database";
+import { child, getDatabase, ref, update } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBEGNbRqVYMKRCYWwz__vLaCdgXFMAJY28",
@@ -34,11 +34,21 @@ export const updatePlayer = async (data) => {
 child
 
 export const getPlayer = async (data) => {
-  let response;
-  const Ref = ref(db, 'players/' + data.address);
-  onValue(Ref, (snapshot) => {
-    response = snapshot.val();
+  return get(child(db, `players/${data.address}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+      return {
+        message: snapshot.val(),
+        code: 200
+      }
+    } else {
+      console.log("No data available");
+      return {
+        message: "error",
+        code: 500
+      }
+    }
+  }).catch((error) => {
+    console.error(error);
   });
-  return response
-
 };
