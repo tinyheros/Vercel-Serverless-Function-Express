@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { child, getDatabase, ref, update } from "firebase/database";
+import { child, get, getDatabase, ref, update } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBEGNbRqVYMKRCYWwz__vLaCdgXFMAJY28",
@@ -31,7 +31,7 @@ export const updatePlayer = async (data) => {
   }
 };
 
-child
+
 
 export const getPlayer = async (data) => {
   return get(child(db, `players/${data.address}`)).then((snapshot) => {
