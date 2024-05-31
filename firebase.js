@@ -35,5 +35,6 @@ export const updatePlayer = async (data) => {
 
 export const getPlayer = async (data) => {
   const resposne = get(ref(db, 'players/' + data.address))
-  return (await resposne).val()
+  const player = await resposne.val()
+  return player
 };
